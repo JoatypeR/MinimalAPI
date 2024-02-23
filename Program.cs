@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder();
 var list = new List<Article>();
 {
     new Article(1, "Marteau");
-    new Article(2, "Scie");
+    new Article(2, "Scie"); 
 
 }
 
@@ -24,7 +24,9 @@ app.MapGet("/articles/{id:int}", (int id) =>
 
 {
     var article = list.Find(a => a.Id == id);
-    if (article is not null) return article;
+    if (article is not null) return Results.Ok(article);
+
+    return Results.NotFound();
 });
 
 
