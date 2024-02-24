@@ -48,7 +48,9 @@ app.MapGet("/personne/{nom}", (
 
 //création clesse personne 
 
-app.MapGet("/personne/identite", (Personne p) => Results.Ok(p));
+//app.MapGet("/personne/identite", (Personne p) => Results.Ok(p));
+
+app.MapPost("/personne/identite", (Personne p) => Results.Ok(p));
 
 // Exécution de l'application
 app.Run();
