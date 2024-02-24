@@ -46,6 +46,10 @@ app.MapGet("/personne/{nom}", (
    [FromQuery] string? prenom,
    [FromHeader(Name = "Accept-Encoding")] string encoding) => Results.Ok($"{nom} {prenom} {encoding}"));
 
+//création clesse personne 
+
+app.MapGet("/personne/identite", (Personne p) => Results.Ok(p));
+
 // Exécution de l'application
 app.Run();
 
