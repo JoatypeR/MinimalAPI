@@ -6,12 +6,7 @@ using System.Text;
 // Création d'une nouvelle application Web
 var builder = WebApplication.CreateBuilder();
 
-// Initialisation d'une liste d'articles
-var list = new List<Article>
-{
-    new Article(1, "Marteau"),
-    new Article(2, "Scie")
-};
+
 
 // Construction de l'application
 var app = builder.Build();
@@ -32,7 +27,7 @@ app.MapGet("/article", () => new Article(1, "Marteau"));
 // Route GET pour récupérer un article par son ID
 app.MapGet("/articles/{id:int}", (int id) =>
 {
-    var article = list.Find(a => a.Id == id);
+    var article = new ArticleService().GetAll().Find(a => a.Id == id);
     if (article is not null) return Results.Ok(article);
     return Results.NotFound();
 });
@@ -51,6 +46,14 @@ app.MapGet("/personne/{nom}", (
 //app.MapGet("/personne/identite", (Personne p) => Results.Ok(p));
 
 app.MapPost("/personne/identite", (Personne p) => Results.Ok(p));
+
+//Route GET pour récupérer articles
+
+app.MapGet("/article", (Article a) =>
+{
+    var result = new ArticleService().Add(a.Title);
+    return Results.Ok(result);
+});
 
 // Exécution de l'application
 app.Run();
